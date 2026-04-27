@@ -1,6 +1,7 @@
 package io.github.jason13official.ender_pack.platform.services;
 
 import java.nio.file.Path;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CreativeModeTab;
 
 public interface IPlatformHelper {
@@ -45,4 +46,6 @@ public interface IPlatformHelper {
   }
 
   CreativeModeTab.Builder tabBuilder();
+
+  boolean equipped(LivingEntity living);
 }

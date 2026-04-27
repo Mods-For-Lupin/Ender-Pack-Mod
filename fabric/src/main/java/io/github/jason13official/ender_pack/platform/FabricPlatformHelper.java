@@ -4,6 +4,7 @@ import io.github.jason13official.ender_pack.platform.services.IPlatformHelper;
 import java.nio.file.Path;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.CreativeModeTab.Builder;
 
 public class FabricPlatformHelper implements IPlatformHelper {
@@ -36,5 +37,10 @@ public class FabricPlatformHelper implements IPlatformHelper {
   public Builder tabBuilder() {
 
     return FabricCreativeModeTab.builder();
+  }
+
+  @Override
+  public boolean equipped(LivingEntity living) {
+    return false;
   }
 }

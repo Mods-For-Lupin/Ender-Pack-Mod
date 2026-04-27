@@ -25,7 +25,7 @@ public class ModItems {
 
     ENDER_PACK = new EnderPackBlockItem(ModBlocks.ENDER_PACK, new Properties()
         .attributes(ArmorMaterials.LEATHER.createAttributes(ArmorType.CHESTPLATE)).enchantable(ArmorMaterials.LEATHER.enchantmentValue())
-        .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.CHEST).setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER).build())
+        .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.CHEST).setSwappable(false).setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER).build())
         .repairable(Items.PHANTOM_MEMBRANE)
         .setId(ResourceKey.create(Registries.ITEM, EnderPack.identifier(Constants.MOD_ID))));
 

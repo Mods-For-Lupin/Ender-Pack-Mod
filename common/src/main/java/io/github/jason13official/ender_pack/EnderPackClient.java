@@ -3,18 +3,27 @@ package io.github.jason13official.ender_pack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import io.github.jason13official.ender_pack.impl.api.client.renderer.EnderPackRenderStateAccessor;
+import io.github.jason13official.ender_pack.impl.common.network.ModePacket;
+import java.util.function.Consumer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
 public class EnderPackClient {
+
+  public static Consumer<CustomPacketPayload> serverBoundPacketSender;
 
   public static void init() {
   }
 
-
+  public static void sendModePacketToServer() {
+    if (serverBoundPacketSender != null) {
+      serverBoundPacketSender.accept(new ModePacket());
+    }
+  }
 
   public static <S extends LivingEntityRenderState> void submitEnderPack(S state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector) {
     EnderPackRenderStateAccessor stateAccessor = (EnderPackRenderStateAccessor) state;

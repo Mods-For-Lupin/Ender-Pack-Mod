@@ -5,11 +5,14 @@ import java.util.function.Consumer;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.KeyMapping.Category;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.player.LocalPlayer;
 import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.client.settings.KeyConflictContext;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.Lazy;
@@ -28,7 +31,10 @@ public class EnderPackClientNeoForge {
 
   public EnderPackClientNeoForge(final IEventBus modEventBus) {
 
-    modEventBus.addListener((Consumer<FMLClientSetupEvent>) event -> EnderPackClient.init());
+    modEventBus.addListener((Consumer<FMLClientSetupEvent>) event -> {
+      EnderPackClient.serverBoundPacketSender = ClientPacketDistributor::sendToServer;
+      EnderPackClient.init();
+    });
 
     modEventBus.addListener((Consumer<RegisterKeyMappingsEvent>) event -> {
 
@@ -39,9 +45,9 @@ public class EnderPackClientNeoForge {
     NeoForge.EVENT_BUS.addListener((Consumer<ClientTickEvent.Post>) event -> {
 
       while (OPEN_BACKPACK.get().consumeClick()) {
-        if (Minecraft.getInstance().player != null) {
-          // TODO send open backpack packet
-        }
+        LocalPlayer local = Minecraft.getInstance().player;
+        Screen display = Minecraft.getInstance().screen;
+        if (local != null && display == null) EnderPackClient.sendModePacketToServer();
       }
     });
   }

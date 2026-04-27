@@ -6,6 +6,7 @@ import io.github.jason13official.ender_pack.platform.services.IPlatformHelper;
 import java.nio.file.Path;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.Builder;
 import net.neoforged.fml.ModList;
@@ -46,6 +47,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
   @Override
   public boolean equipped(LivingEntity living) {
 
+    if (living.isHolding(ModItems.ENDER_PACK)) return true;
     if (living.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ENDER_PACK)) return true;
     if (isModLoaded("curios") && CuriosEnderPackSupport.isWearingEnderPack(living)) return true;
 

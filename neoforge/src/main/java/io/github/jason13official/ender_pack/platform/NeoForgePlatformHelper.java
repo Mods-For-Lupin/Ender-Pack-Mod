@@ -47,6 +47,7 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
   @Override
   public boolean equipped(LivingEntity living) {
 
+    if (living instanceof Player player && player.getInventory().contains(stack -> stack.is(ModItems.ENDER_PACK))) return true;
     if (living.isHolding(ModItems.ENDER_PACK)) return true;
     if (living.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ENDER_PACK)) return true;
     if (isModLoaded("curios") && CuriosEnderPackSupport.isWearingEnderPack(living)) return true;

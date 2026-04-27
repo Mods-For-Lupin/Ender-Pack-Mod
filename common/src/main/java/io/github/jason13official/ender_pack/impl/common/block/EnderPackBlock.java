@@ -12,15 +12,20 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.Util;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.PlayerEnderChestContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -38,6 +43,16 @@ public class EnderPackBlock extends HorizontalDirectionalBlock {
   @Override
   protected MapCodec<? extends HorizontalDirectionalBlock> codec() {
     return CODEC;
+  }
+
+  @Override
+  protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
+    builder.add(HorizontalDirectionalBlock.FACING);
+  }
+
+  @Override
+  public BlockState getStateForPlacement(BlockPlaceContext context) {
+    return (BlockState)this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
   }
 
   @Override
@@ -59,6 +74,19 @@ public class EnderPackBlock extends HorizontalDirectionalBlock {
     }
 
     return super.useWithoutItem(state, level, pos, player, hitResult);
+  }
+
+  @Override
+  protected boolean isRandomlyTicking(BlockState state) {
+    return true;
+  }
+
+  @Override
+  protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+    if (random.nextFloat() <= 0.02) {
+      ItemEntity entity = new ItemEntity(level, pos.getX(), pos.getY() + 0.5, pos.getZ(), new ItemStack(Items.ENDER_PEARL));
+      level.addFreshEntity(entity);
+    }
   }
 
   @Override

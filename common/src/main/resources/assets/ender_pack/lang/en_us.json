@@ -1,5 +1,7 @@
 {
   "itemGroup.enderPack": "Ender Pack",
   "item.ender_pack.ender_pack": "Ender Pack",
-  "block.ender_pack.ender_pack": "Ender Pack"
+  "block.ender_pack.ender_pack": "Ender Pack",
+  "key.ender_pack.ender_pack": "Ender Pack",
+  "key.category.ender_pack.ender_pack": "Ender Pack"
 }

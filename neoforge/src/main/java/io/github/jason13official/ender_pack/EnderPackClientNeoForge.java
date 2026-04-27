@@ -23,7 +23,6 @@ public class EnderPackClientNeoForge {
   public static final Category ENDER_PACK_CATEGORY = new Category(EnderPack.identifier(Constants.MOD_ID));
   public static final Lazy<KeyMapping> OPEN_BACKPACK = Lazy.of(() -> new KeyMapping(
       "key.ender_pack.ender_pack", // Will be localized using this translation key
-      KeyConflictContext.IN_GAME, // Will only fire outside of menus
       InputConstants.Type.KEYSYM, // Default mapping is on the keyboard
       GLFW.GLFW_KEY_B, // Default key is B
       ENDER_PACK_CATEGORY) // Mapping will be in the ender_pack category

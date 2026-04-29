@@ -18,7 +18,7 @@ public class EnderPackClientFabric implements ClientModInitializer {
   public static final KeyMapping OPEN_BACKPACK = KeyMappingHelper.registerKeyMapping(
       new KeyMapping("key.ender_pack.ender_pack", // The translation key for the key mapping.
       InputConstants.Type.KEYSYM, // // The type of the keybinding; KEYSYM for keyboard, MOUSE for mouse.
-      GLFW.GLFW_KEY_B, // The GLFW keycode of the key.
+      GLFW.GLFW_KEY_F9, // The GLFW keycode of the key.
       ENDER_PACK_CATEGORY // The category of the mapping.
   ));
 

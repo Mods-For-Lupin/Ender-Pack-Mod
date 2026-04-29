@@ -34,7 +34,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class EnderPackBlock extends HorizontalDirectionalBlock {
 
   public static final MapCodec<EnderPackBlock> CODEC = simpleCodec(EnderPackBlock::new);
-  private static final Map<Direction, VoxelShape> SHAPES = Util.make(() -> Shapes.rotateHorizontal(Shapes.or(Block.box(3, 0, 4, 16 - 3, 16 - 4, 16 - 7))));
+  private static final Map<Direction, VoxelShape> SHAPES = Util.make(() -> Shapes.rotateHorizontal(Shapes.or(Block.box(3, 0, 6, 16 - 3, 16 - 4, 16 - 5))));
 
   public EnderPackBlock(Properties properties) {
     super(properties);

@@ -11,9 +11,11 @@ import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
 
 public class EnderPackClient {
 
+  public static final Identifier CONTAINER_BACKGROUND = EnderPack.identifier("textures/gui/container/ender_pack.png");
   public static Consumer<CustomPacketPayload> serverBoundPacketSender;
 
   public static void init() {
@@ -38,6 +40,8 @@ public class EnderPackClient {
 
     poseStack.pushPose();
 
+    // flip it around jack
+
     poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - state.bodyRot));
 
     if (state instanceof AvatarRenderState avState && avState.isCrouching) {
@@ -46,6 +50,7 @@ public class EnderPackClient {
     }
 
     poseStack.translate(0.0625 * 0, state.boundingBoxHeight - (0.0625 * 11), 0.0625 * 6);
+    poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
     enderPack.submit(poseStack, submitNodeCollector, state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
     poseStack.popPose();
   }

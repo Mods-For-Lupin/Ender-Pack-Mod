@@ -5,6 +5,8 @@
   "compatibilityLevel": "JAVA_18",
   "mixins": [],
   "client": [
+    "AbstractContainerScreenMixin",
+    "ContainerScreenMixin",
     "LivingEntityRendererMixin",
     "LivingEntityRenderStateMixin",
     "MinecraftMixin"

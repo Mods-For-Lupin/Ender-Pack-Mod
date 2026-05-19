@@ -14,9 +14,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
@@ -42,11 +40,13 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, S extend
   private void ender_pack$extractRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
     EnderPackRenderStateAccessor stateAccessor = (EnderPackRenderStateAccessor) state;
 
-    if (Services.PLATFORM.equipped(entity)) {
+    if (Services.PLATFORM.equipped(entity) && Services.PLATFORM.shouldRenderOnBack(entity)) {
       stateAccessor.ender_pack$setEnderPack(true);
+      stateAccessor.ender_pack$setRenderEnderPack(true);
       this.itemModelResolver.updateForLiving(stateAccessor.ender_pack$getEnderPack(), new ItemStack(ModItems.ENDER_PACK), ItemDisplayContext.FIXED, entity);
     } else {
       stateAccessor.ender_pack$setEnderPack(false);
+      stateAccessor.ender_pack$setRenderEnderPack(false);
       stateAccessor.ender_pack$getEnderPack().clear();
     }
   }

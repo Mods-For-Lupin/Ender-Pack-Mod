@@ -47,6 +47,7 @@ repositories {
 
 dependencies {
 
+    implementation "maven.modrinth:monolib:neoforge-26.1.2-4.0.2"
     implementation "curse.maven:curios-309927:7925547"
 }
 

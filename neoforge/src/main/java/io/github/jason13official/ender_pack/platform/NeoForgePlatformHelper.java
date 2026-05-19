@@ -54,4 +54,12 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
 
     return false;
   }
+
+  @Override
+  public boolean shouldRenderOnBack(LivingEntity living) {
+
+    if (living.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ENDER_PACK)) return true;
+
+    return isModLoaded("curios") && CuriosEnderPackSupport.shouldRenderOnBack(living);
+  }
 }

@@ -10,4 +10,7 @@ public interface EnderPackRenderStateAccessor {
 
   ItemStackRenderState ender_pack$getEnderPack();
 
+  boolean ender_pack$shouldRenderEnderPack();
+
+  void ender_pack$setRenderEnderPack(boolean render);
 }

@@ -33,6 +33,10 @@ public class EnderPackClient {
       return;
     }
 
+    if (!stateAccessor.ender_pack$shouldRenderEnderPack()) {
+      return;
+    }
+
     ItemStackRenderState enderPack = stateAccessor.ender_pack$getEnderPack();
     if (enderPack.isEmpty()) {
       return;

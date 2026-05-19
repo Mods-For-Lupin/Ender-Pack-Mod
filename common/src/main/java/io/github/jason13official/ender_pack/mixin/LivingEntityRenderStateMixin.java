@@ -11,6 +11,8 @@ public class LivingEntityRenderStateMixin implements EnderPackRenderStateAccesso
 
   @Unique
   private boolean ender_pack$hasEnderPack = false;
+  @Unique
+  private boolean ender_pack$shouldRenderEnderPack = false;
 
   @Unique
   public final ItemStackRenderState ender_pack$ender_pack = new ItemStackRenderState();
@@ -28,5 +30,15 @@ public class LivingEntityRenderStateMixin implements EnderPackRenderStateAccesso
   @Override
   public ItemStackRenderState ender_pack$getEnderPack() {
     return this.ender_pack$ender_pack;
+  }
+
+  @Override
+  public boolean ender_pack$shouldRenderEnderPack() {
+    return this.ender_pack$shouldRenderEnderPack;
+  }
+
+  @Override
+  public void ender_pack$setRenderEnderPack(boolean render) {
+    this.ender_pack$shouldRenderEnderPack = render;
   }
 }

@@ -48,4 +48,6 @@ public interface IPlatformHelper {
   CreativeModeTab.Builder tabBuilder();
 
   boolean equipped(LivingEntity living);
+
+  boolean shouldRenderOnBack(LivingEntity living);
 }

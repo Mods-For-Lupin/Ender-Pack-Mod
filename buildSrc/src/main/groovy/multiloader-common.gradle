@@ -29,6 +29,9 @@ repositories {
         name = 'BlameJared'
         url = 'https://maven.blamejared.com'
     }
+    maven {
+        url = "https://api.modrinth.com/maven"
+    }
 }
 
 sourcesJar {

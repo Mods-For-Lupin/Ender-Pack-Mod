@@ -44,16 +44,26 @@ public class EnderPackClient {
 
     poseStack.pushPose();
 
-    // flip it around jack
-
     poseStack.mulPose(Axis.YP.rotationDegrees(180.0F - state.bodyRot));
 
-    if (state instanceof AvatarRenderState avState && avState.isCrouching) {
-      poseStack.mulPose(Axis.XP.rotation(-0.5f));
-      poseStack.translate(0, 0.0625 * -1, 0.0625 * 9);
+    boolean isFallFlying = false;
+    if (state instanceof AvatarRenderState avState) {
+      if (avState.isFallFlying) {
+        isFallFlying = true;
+        float flyScale = avState.fallFlyingScale();
+        poseStack.mulPose(Axis.XP.rotationDegrees(flyScale * (-90.0F - state.xRot)));
+        if (avState.shouldApplyFlyingYRot) {
+          poseStack.mulPose(Axis.YP.rotation(avState.flyingYRot));
+        }
+      } else if (avState.isCrouching) {
+        poseStack.mulPose(Axis.XP.rotation(-0.5f));
+        poseStack.translate(0, 0.0625 * -1, 0.0625 * 9);
+      }
     }
 
-    poseStack.translate(0.0625 * 0, state.boundingBoxHeight - (0.0625 * 11), 0.0625 * 6);
+    // boundingBoxHeight shrinks to 0.6 during fall flying; use natural standing height instead
+    float spineY = (isFallFlying ? state.scale * 1.8f : state.boundingBoxHeight) - 0.0625f * 11;
+    poseStack.translate(0, spineY, 0.0625 * 6);
     poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
     enderPack.submit(poseStack, submitNodeCollector, state.lightCoords, OverlayTexture.NO_OVERLAY, state.outlineColor);
     poseStack.popPose();

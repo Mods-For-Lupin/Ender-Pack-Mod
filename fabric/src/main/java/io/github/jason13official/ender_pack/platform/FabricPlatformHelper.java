@@ -52,6 +52,6 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
   @Override
   public boolean shouldRenderOnBack(LivingEntity living) {
-    return true;
+    return living.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.ENDER_PACK);
   }
 }

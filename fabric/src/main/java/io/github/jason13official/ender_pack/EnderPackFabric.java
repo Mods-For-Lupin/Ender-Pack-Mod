@@ -15,6 +15,7 @@ import java.util.function.Consumer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.fabricmc.fabric.api.resource.v1.DataResourceLoader;
 import net.fabricmc.fabric.impl.resource.DataResourceLoaderImpl;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -62,7 +63,8 @@ public class EnderPackFabric implements ModInitializer {
       }
     });
 
-    DataResourceLoaderImpl.get(PackType.SERVER_DATA).registerReloadListener(EnderPack.identifier(Constants.MOD_ID), new ResourceReloadListener());
+    DataResourceLoader.get().registerReloadListener(EnderPack.identifier(Constants.MOD_ID), new ResourceReloadListener());
+    // DataResourceLoaderImpl.get(PackType.SERVER_DATA).registerReloadListener(EnderPack.identifier(Constants.MOD_ID), new ResourceReloadListener());
   }
 
   public <T> void bind(Registry<T> registry, Consumer<BiConsumer<T, Identifier>> source) {
